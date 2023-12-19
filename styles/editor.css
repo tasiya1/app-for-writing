@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Overpass;
+}
+
+.page {
+    position: absolute;
+    padding: 0px;
+    margin: 0;
+    width: 100%;
+    background-color: rgb(237, 235, 233);
+}
+
+.story-title{
+    margin: 0 auto;
+    padding: 40px 40px 0 40px;
+    font-size: 81pt;
+    position: sticky;
+    font-weight: 800;
+    text-align: center;
+}
+
+.chapter {
+    border-radius: 20px;
+    font-size: 48pt;
+
+    background-color: rgb(255, 201, 181);
+    border: none;
+    margin: 50px 100px;
+    padding: 40px;
+}
+
+.chapter-header{
+    border-bottom: 2px solid black;
+    font-weight: 800;
+    width: 40%;
+}
+
+.chapter-text {
+    font-weight: 400;
+}
+
+.chapter .chapter-header, .chapter .chapter-text{
+    outline: none;
+    padding: 10px;
+}
+
+.line {
+    width: 40%;
+    border-bottom: 2px solid black;
+}
+
+.lol {
+    border-right-width: 2px;
+    border-right-style: dashed;
+    border-right-color: red;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
