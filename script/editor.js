@@ -74,7 +74,7 @@ class Button {
 
 
 let headers = ["chapter 1"]
-let texts = ["I am so tired today. but this feels so awesome. I am writing a web app fow writers, which helps to organize stories and its chapters. More functionality soon! QvQ"]
+let texts = ["This is a web app for writers, which helps to organize stories through sections. More functionality soon! QvQ"]
 
 
 class Chapter{
