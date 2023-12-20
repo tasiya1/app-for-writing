@@ -4,38 +4,56 @@
     font-family: Overpass;
 }
 
+body {
+    background-color: rgb(249, 249, 249);
+}
+
 .page {
     position: absolute;
     padding: 0px;
     margin: 0;
     width: 100%;
     /* background-color: rgb(237, 235, 233); */
-    background-color: rgb(249, 249, 249);
+}
+
+#file-options {
+    position: fixed;
+}
+
+#file-options input[type=color]{
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
 }
 
 .story-title{
     margin: 0 auto;
     padding: 40px 40px 0 40px;
-    font-size: 81pt;
+    font-size: 10vh;
     position: sticky;
     font-weight: 800;
     text-align: center;
-    min-width: 700px;
+    min-width: 20vw;
     max-width: fit-content;
     outline: none;
 
     border-bottom: 2px solid rgba(0, 0, 0, 0.24);
 }
 
+#chapters-container {
+    position: relative;
+    width: 100%;
+}
 
 .chapter {
     border-radius: 20px;
-    font-size: 32pt;
+    font-size: 3vh;
 
     /*background-color: rgb(255, 201, 181);*/
     border: 3px solid black;
-    margin: 50px 100px;
-    padding: 40px;
+    margin: 50px 70px;
+    padding: 30px;
 
     animation: new-chapter 1s ease-in-out
 }
@@ -43,22 +61,24 @@
 .chapter-header{
     border-bottom: 2px solid rgba(0, 0, 0, 0.24);
     font-weight: 800;
-    min-width: 400px;
+    min-width: 20%;
     max-width: fit-content;
+    padding: 30px 30px 10px 30px;
 }
 
 .chapter-text {
     font-weight: 400;
+    padding: 30px;
 }
 
 .chapter .chapter-header, .chapter .chapter-text{
     outline: none;
-    padding: 30px 10px;
 }
 
 .chapter-button-container {
     display: flex;
     justify-content: flex-end;
+    overflow-x: overlay;
 }
 
 .chapter-button {
@@ -83,6 +103,18 @@ transform: scale(0.8);
 .chapter-button img{
     height: 35px;
     width: auto;
+}
+
+.subchapter {
+    display: flex;
+    flex-direction: row;
+    overflow-x: overlay;
+}
+
+.subchapter .chapter {
+    min-width: 30%;
+    max-width: 70%;
+    margin: 5px;
 }
 
 .line {
@@ -115,9 +147,17 @@ transform: scale(0.8);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24pt;
+    font-size: 2vh;
 
     animation: appear 1s ease-in-out, disappear 2s ease-in-out;
+}
+
+.info-empty{
+    text-align: center;
+    color: rgb(141, 141, 141);
+    text-decoration: underline;
+    visibility: hidden;
+    padding-top: 20px;
 }
 
 .message p{
@@ -163,3 +203,20 @@ transform: scale(0.8);
         opacity: 0;
     }
   }
+
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #00000031;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffffff3c;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ffffff75;
+}
