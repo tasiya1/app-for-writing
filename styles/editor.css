@@ -9,7 +9,8 @@
     padding: 0px;
     margin: 0;
     width: 100%;
-    background-color: rgb(237, 235, 233);
+    /* background-color: rgb(237, 235, 233); */
+    background-color: rgb(249, 249, 249);
 }
 
 .story-title{
@@ -19,22 +20,31 @@
     position: sticky;
     font-weight: 800;
     text-align: center;
+    min-width: 700px;
+    max-width: fit-content;
+    outline: none;
+
+    border-bottom: 2px solid rgba(0, 0, 0, 0.24);
 }
+
 
 .chapter {
     border-radius: 20px;
-    font-size: 48pt;
+    font-size: 32pt;
 
-    background-color: rgb(255, 201, 181);
-    border: none;
+    /*background-color: rgb(255, 201, 181);*/
+    border: 3px solid black;
     margin: 50px 100px;
     padding: 40px;
+
+    animation: new-chapter 1s ease-in-out
 }
 
 .chapter-header{
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.24);
     font-weight: 800;
-    width: 40%;
+    min-width: 400px;
+    max-width: fit-content;
 }
 
 .chapter-text {
@@ -43,7 +53,36 @@
 
 .chapter .chapter-header, .chapter .chapter-text{
     outline: none;
-    padding: 10px;
+    padding: 30px 10px;
+}
+
+.chapter-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.chapter-button {
+    border: none;
+    border-radius: 5px;
+    /*background-color: #ffffff6a;*/
+    background-color: transparent;
+    padding: 9px;
+    margin: 5px;
+}
+
+.chapter-button:hover {
+    /* background-color: rgba(220, 145, 118, 0.548); */
+    background-color: rgba(0, 0, 0, 0.088)
+
+}
+
+.chapter-button:active {
+transform: scale(0.8);
+}
+
+.chapter-button img{
+    height: 35px;
+    width: auto;
 }
 
 .line {
@@ -58,3 +97,69 @@
     animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
 }
+
+*::placeholder {
+    color: aqua;
+}
+
+.message {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto auto;
+    /*background-color: rgba(240, 248, 255, 0.29);*/
+    background: radial-gradient(#e66464, #9198e5a7, #ffffff00);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24pt;
+
+    animation: appear 1s ease-in-out, disappear 2s ease-in-out;
+}
+
+.message p{
+    padding: 30px;
+    background-color: #e66464;
+}
+
+@keyframes new-chapter {
+    0% {
+      transform: scale(0.1);
+    }
+    25% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+  }
+  
+  @keyframes disappear {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+  }
