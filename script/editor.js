@@ -30,6 +30,7 @@ class System{
     }
 
     initMenu(){
+        this.initFileReader()
         document.getElementById("import-button").onclick = () => {this.importStory()}
         document.getElementById("export-button").onclick = () => {this.exportStory()}
         document.getElementById("open-menu-button").addEventListener("click", this.openSidebar)
