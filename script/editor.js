@@ -93,12 +93,11 @@ class System{
 
             reader.onload = () => {
                 let content = reader.result
-                //console.log(content)
                 this.chapterArray = (JSON.parse(reader.result))
-                //this.chapterArray = this.chapterArray[0]
                 console.log(this.chapterArray)
                 this.clearField()
-                this.appendChapters()
+                document.getElementById("story-title").firstChild.innerHTML = this.chapterArray.title
+                this.appendChapters(this.chapterArray.chapters)
                 document.getElementById("file-input").value = null
             }
 
@@ -117,11 +116,12 @@ class System{
     }
 
     exportStory(){
-        this.writeFile(this.findMyKids(parent))
+        this.chapterArray = {title: document.getElementById("story-title").firstChild.innerHTML, chapters: this.findMyKids(parent)} 
+        this.writeFile(this.chapterArray)
     }
     
-    appendChapters(){
-        for (let chapter of this.chapterArray){
+    appendChapters(chapters){
+        for (let chapter of chapters){
             new Chapter(parent, chapter.id, chapter.title, chapter.text, null, null, chapter.children)
         }
     }
