@@ -20,6 +20,10 @@ body {
     position: fixed;
 }
 
+#message-empty {
+
+}
+
 #file-options input[type=color]{
     border-radius: 10px;
     width: 40px;
@@ -163,6 +167,21 @@ transform: scale(0.8);
 .message p{
     padding: 30px;
     background-color: #e66464;
+}
+
+.to-be-removed {
+    animation: disappear 500ms normal;
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-100%);
+    }
 }
 
 @keyframes new-chapter {

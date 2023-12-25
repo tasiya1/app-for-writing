@@ -1,5 +1,4 @@
 var top = "top", bottom = "bottom", inside = "inside"
-let todaysTint = 290//Math.floor(350 * Math.random())//293//
 
 var containers = []
 
@@ -12,6 +11,9 @@ class System{
     constructor(){
         this.rescueButton = null
         this.todaysTint = 34
+        this.tintRange = 15
+        this.chapterArray = []
+        this.jsonChapterArray = []
         this.rescueButtonId = "rescue-button"
         this.chapters = []
         this.addRescueButton()
@@ -20,9 +22,9 @@ class System{
     }
 
     wtfColor(){
-    return "hsl(" + this.todaysTint + Math.floor(10 * Math.random()) + ',' +
-    (50 + 50 * Math.random()) + '%,' + 
-    (85 + 10 * Math.random()) + '%)'
+        return "hsl(" + this.todaysTint + Math.floor(this.tintRange * Math.random()) + ',' +
+        (50 + 50 * Math.random()) + '%,' + 
+        (85 + 10 * Math.random()) + '%)'
     }
 
     initColorMoodInput(){
@@ -49,41 +51,98 @@ class System{
         hue *= 60
 
         if (hue < 0) {
-          hue += 360;
+          hue += 360 - this.tintRange;
         }
         return hue
     }
 
-    raiseSingleChapterMessage(){
+    raiseMessage(messageText){
         let message = document.createElement("div")
         message.classList.add("message")
-        message.innerHTML = `<p>Document should have at least one chapter.</p>`
+        message.innerHTML = `<p>` + messageText +`</p>`
         document.querySelector("body").appendChild(message)
         setTimeout(() => {message.remove()}, 1000)
     }
 
-    enoughChaptersLeft(){
-        let e = document.getElementsByClassName("chapter")
-        if (e.length > 1)
-        return true
-
-    }
-
     initFileButtons(){
+        this.initFileReader()
         document.getElementById("import-button").onclick = () => {this.importStory()}
         document.getElementById("export-button").onclick = () => {this.exportStory()}
     }
 
+    filterText(){
+        
+    }
+
     chaptersToJSON(){
-        //document.get
+        this.chapterArray = this.findMyKids(parent)
+    }
+
+    initFileReader(){
+        let fileInput = document.getElementById("file-input")
+        fileInput.addEventListener('change', (event) => {
+            let file = event.target.files[0]
+            let reader = new FileReader()
+
+            reader.onload = () => {
+                let content = reader.result
+                //console.log(content)
+                this.chapterArray = (JSON.parse(reader.result))
+                //this.chapterArray = this.chapterArray[0]
+                console.log(this.chapterArray)
+                this.clearField()
+                this.appendChapters()
+                document.getElementById("file-input").value = null
+            }
+
+            reader.onerror = () => { console.error('Error reading the file') }
+
+            reader.readAsText(file, 'utf-8')
+        })
+    }
+
+    clearField(){
+        document.getElementById('chapters-container').querySelectorAll('.chapter').forEach(element => {element.remove()});
     }
 
     importStory(){
-        document.removeChild(parent)
+        document.getElementById("file-input").click()
     }
 
     exportStory(){
+        this.writeFile(this.findMyKids(parent))
+    }
+    
+    appendChapters(){
+        for (let chapter of this.chapterArray){
+            new Chapter(parent, chapter.id, chapter.title, chapter.text, null, null, chapter.children)
+        }
+    }
 
+    findMyKids(subchapterContainer){
+        let kids = subchapterContainer.children
+        let kidsArray = []
+        if (kids.length != 0){
+            for (let chapter of kids){
+                let id = chapter.dataset.id// getAttribute('id')
+                let chapterEl = {id: id,
+                                title: chapter.querySelector('.chapter-header').innerHTML,
+                                text: chapter.querySelector('.chapter-text').innerHTML,
+                                children: this.findMyKids(chapter.querySelector('.subchapter'))}
+                kidsArray.push(chapterEl)
+            } return kidsArray
+        }
+        else return []
+    }
+
+    writeFile(chaptersArr){
+        let jsonData = JSON.stringify(chaptersArr)
+        let blob = new Blob([jsonData], { type: "application/json" })
+        let dat = document.createElement('a')
+        dat.href = URL.createObjectURL(blob);
+        let title = document.getElementById("story-title").querySelector('p').innerHTML
+        dat.download = title + ".json"
+        dat.click()
     }
 
     addRescueButton(){ 
@@ -91,8 +150,8 @@ class System{
         this.rescueButton.innerHTML = `There is no chapters. Click this and start writing ^_^`
         this.rescueButton.id = this.rescueButtonId
         this.rescueButton.classList.add("info-empty")
-        this.rescueButton.onclick = () => { new Chapter(parent, "", "", "first", null) }
-        parent.appendChild(this.rescueButton)
+        this.rescueButton.onclick = () => { new Chapter(parent, null, "", "", "first", null) }
+        document.getElementById("message-empty").appendChild(this.rescueButton)
      }
 
     showRescueButton(){ this.rescueButton.style.visibility = "visible" }
@@ -100,11 +159,10 @@ class System{
     removeRescueButton(){ this.rescueButton.style.visibility = "hidden" }
 
     removeChapter(container){
-        //if (this.enoughChaptersLeft()) 
-        container.remove()
-            //this.raiseSingleChapterMessage()
+        container.classList.add('to-be-removed')
+        setTimeout(() => {container.remove()
         if (document.getElementsByClassName("chapter").length < 1)
-            this.showRescueButton()
+            this.showRescueButton()}, 500)            
     }
 }
 
@@ -132,18 +190,16 @@ class Button {
 
         switch (this.role) {
             case "add-bottom":
-                new Chapter(ct, "", "", bottom, id);
+                new Chapter(ct, null, "", "", bottom, id);
                 break;
             case "add-top":
-                new Chapter(ct, "", "", top, id);
+                new Chapter(ct, null, "", "", top, id);
                 break;
             case "delete":
                 sy.removeChapter(button.parentNode.parentNode)
-                //containers = containers.filter(o => o.id !== parseInt(id)); //to fix
                 break;
             case "add-subchapter":
-                new Chapter(ct, "", "", inside, id);
-                //this.chapterContainer.appendChild(newChapter.chapterOsnova);
+                new Chapter(this.chapterContainer, null, "", "", inside, id);
                 break;
         }
     }
@@ -157,15 +213,14 @@ let texts = ["This is a web app for writers, which helps to organize stories thr
 
 
 class Chapter{
-    constructor(master, title, text, order, prevId){
-        this.id = Date.now(); //"chapter-" + i
+    constructor(master, id, title, text, order, prevId, kids){
+        id != null? this.id = id : this.id = Date.now(); //"chapter-" + i        
         this.title = title
         this.text = text
         this.chapterOsnova = document.createElement("div");
         this.master = master
         this.prev = document.getElementById("chapter-" + prevId)
 
-        //let parent = master
         this.chapterOsnova.classList.add('chapter')
         this.chapterOsnova.id = "chapter-" + this.id //i
         this.chapterOsnova.innerHTML = 
@@ -191,32 +246,37 @@ class Chapter{
 
    
         this.chapterOrder(order, prevId)
+        if (kids != null) if (kids.length != 0)
+            this.takeCareOfKids(kids, this)
         sy.removeRescueButton()
-        containers.push(this)
+        //containers.push(this)
+    }
+
+    takeCareOfKids(kids, chapter){
+        for (let kid of kids){
+            new Chapter(chapter, kid.id, kid.title, kid.text, inside, chapter.id, kid.children)
+        }
     }
 
     chapterOrder(order, prevId) {
         switch (order) {
         case top:
             this.prev.parentNode.insertBefore(this.chapterOsnova, this.prev);
-            //document.getElementById("main-page").insertBefore(this.chapterOsnova, prev);
             break;
         case bottom:
             this.prev.insertAdjacentElement("afterend", this.chapterOsnova);
             break;
         case inside:
             document.getElementById("subchapter-" + prevId).appendChild(this.chapterOsnova);
-            //master.appendChild(this.chapterOsnova);
             break;
         default:
             this.master.appendChild(this.chapterOsnova);
             break;
         }
     }
-
 }
 
 // DEFAULT
 for (i = 0; i < headers.length; i++){
-    containers.push(new Chapter(parent, headers[i], texts[i]), null, null)
+    containers.push(new Chapter(parent, null, headers[i], texts[i], null, null, null))
 }
