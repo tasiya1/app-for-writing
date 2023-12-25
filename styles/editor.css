@@ -16,19 +16,61 @@ body {
     /* background-color: rgb(237, 235, 233); */
 }
 
-#file-options {
+.sidebar {
     position: fixed;
+    height: 100%;
+    width: 0px;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    overflow-x: hidden;
+    backdrop-filter: blur(10px);
+    background-color: #ffffffad;
 }
 
-#message-empty {
-
+#open-menu-button {
+    position: fixed;
+    z-index: 99;
 }
 
-#file-options input[type=color]{
-    border-radius: 10px;
-    width: 40px;
+.menu-button {
+    margin: 15px;
+    border: none;
+    background-color: transparent;
+}
+
+.menu-button img {
     height: 40px;
-    margin: 5px;
+    width: auto;
+}
+
+.sidebar button img {
+    height: auto;
+    width: 40px;
+}
+
+#close-menu-button {
+    margin: 25px;
+}
+
+.sidebar #app-title {
+    margin: 15px;
+}
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
 }
 
 .story-title{
@@ -211,7 +253,7 @@ transform: scale(0.8);
     }
   }
   
-  @keyframes disappear {
+@keyframes disappear {
     0% {
         opacity: 1;
     }
@@ -221,7 +263,7 @@ transform: scale(0.8);
     100% {
         opacity: 0;
     }
-  }
+}
 
 ::-webkit-scrollbar {
     width: 5px;

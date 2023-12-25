@@ -17,14 +17,31 @@ class System{
         this.rescueButtonId = "rescue-button"
         this.chapters = []
         this.addRescueButton()
-        this.initFileButtons()
+        this.initMenu()
         this.initColorMoodInput()
     }
 
     wtfColor(){
-        return "hsl(" + this.todaysTint /*+ Math.floor(this.tintRange * Math.random())*/ + ',' +
-        (50 + 50 * Math.random()) + '%,' + 
-        (85 + 10 * Math.random()) + '%)'
+        return "hsl(" + this.todaysTint /*+ Math.floor(this.tintRange * Math.random())*/ + ', 70%, 85%)'
+    }
+
+    setColorTheme(){
+
+    }
+
+    initMenu(){
+        document.getElementById("import-button").onclick = () => {this.importStory()}
+        document.getElementById("export-button").onclick = () => {this.exportStory()}
+        document.getElementById("open-menu-button").addEventListener("click", this.openSidebar)
+        document.getElementById("close-menu-button").addEventListener("click", this.closeSidebar)
+    }
+
+    closeSidebar(){
+        document.getElementById("menu").style.width = "0px"
+    }
+
+    openSidebar(){
+        document.getElementById("menu").style.width = "400px"
     }
 
     initColorMoodInput(){
@@ -71,12 +88,6 @@ class System{
         setTimeout(() => {message.remove()}, 1000)
     }
 
-    initFileButtons(){
-        this.initFileReader()
-        document.getElementById("import-button").onclick = () => {this.importStory()}
-        document.getElementById("export-button").onclick = () => {this.exportStory()}
-    }
-
     filterText(){
         
     }
@@ -112,6 +123,7 @@ class System{
     }
 
     importStory(){
+        this.closeSidebar()
         document.getElementById("file-input").click()
     }
 
