@@ -22,7 +22,7 @@ class System{
     }
 
     wtfColor(){
-        return "hsl(" + this.todaysTint + Math.floor(this.tintRange * Math.random()) + ',' +
+        return "hsl(" + this.todaysTint /*+ Math.floor(this.tintRange * Math.random())*/ + ',' +
         (50 + 50 * Math.random()) + '%,' + 
         (85 + 10 * Math.random()) + '%)'
     }
@@ -31,7 +31,12 @@ class System{
         this.colorMoodInput = document.getElementById("color-mood")
         this.colorMoodInput.value = "#ffbf66"
         this.todaysTint = this.getHue(this.colorMoodInput.value)
-        this.colorMoodInput.addEventListener("change", (event) => {this.todaysTint = this.getHue(event.target.value)})
+        this.colorMoodInput.addEventListener("input", (event) => {
+            this.todaysTint = this.getHue(event.target.value)
+            document.querySelectorAll('.chapter').forEach(element => {
+                element.style.backgroundColor = this.wtfColor()
+            });
+        })
     }
 
     getHue(color){
@@ -51,7 +56,9 @@ class System{
         hue *= 60
 
         if (hue < 0) {
-          hue += 360 - this.tintRange;
+          hue += 360;
+          if (hue < 0)
+          console.warn("color is weird...")
         }
         return hue
     }
