@@ -10,6 +10,7 @@ let parent = document.getElementById("chapters-container")
 class System{
     constructor(){
         this.rescueButton = null
+        this.colorTheme = "#ffbf66"
         this.todaysTint = 34
         this.tintRange = 15
         this.chapterArray = []
@@ -22,7 +23,8 @@ class System{
     }
 
     wtfColor(){
-        return "hsl(" + this.todaysTint /*+ Math.floor(this.tintRange * Math.random())*/ + ', 70%, 85%)'
+        //return "hsl(" + this.todaysTint /*+ Math.floor(this.tintRange * Math.random())*/ + ', 70%, 85%)'
+        return this.colorTheme + "88"
     }
 
     setColorTheme(){
@@ -30,6 +32,7 @@ class System{
     }
 
     initMenu(){
+        this.initFileReader()
         document.getElementById("import-button").onclick = () => {this.importStory()}
         document.getElementById("export-button").onclick = () => {this.exportStory()}
         document.getElementById("open-menu-button").addEventListener("click", this.openSidebar)
@@ -37,21 +40,24 @@ class System{
     }
 
     closeSidebar(){
-        document.getElementById("menu").style.width = "0px"
+        document.getElementById("menu").classList.remove('opened') //style.width = "0px"
     }
 
     openSidebar(){
-        document.getElementById("menu").style.width = "400px"
+        document.getElementById("menu").classList.add('opened')// style.width = "400px"
     }
 
     initColorMoodInput(){
         this.colorMoodInput = document.getElementById("color-mood")
-        this.colorMoodInput.value = "#ffbf66"
+        this.colorMoodInput.value = this.colorTheme
         this.todaysTint = this.getHue(this.colorMoodInput.value)
         this.colorMoodInput.addEventListener("input", (event) => {
-            this.todaysTint = this.getHue(event.target.value)
+            this.colorTheme = event.target.value
+            this.todaysTint = this.getHue(this.colorTheme)
             document.querySelectorAll('.chapter').forEach(element => {
                 element.style.backgroundColor = this.wtfColor()
+                element.style.borderColor = this.wtfColor()
+                console.log(element.style.backgroundColor)
             });
         })
     }
@@ -173,9 +179,9 @@ class System{
         document.getElementById("message-empty").appendChild(this.rescueButton)
      }
 
-    showRescueButton(){ this.rescueButton.style.visibility = "visible" }
+    showRescueButton(){ document.getElementById("message-empty").style.visibility = "visible" }
 
-    removeRescueButton(){ this.rescueButton.style.visibility = "hidden" }
+    removeRescueButton(){ document.getElementById("message-empty").style.visibility = "hidden" }
 
     removeChapter(container){
         container.classList.add('to-be-removed')
@@ -247,6 +253,7 @@ class Chapter{
         <div class="chapter-text" id="chapter-text-` + this.id + `" width="100%" contenteditable>` + text + `</div>`
         this.chapterOsnova.dataset.id = this.id 
         this.chapterOsnova.style.backgroundColor = sy.wtfColor()
+        this.chapterOsnova.style.borderColor = sy.wtfColor()
         this.chapterOsnova.firstChild.setAttribute("placeholder", "title");
         this.chapterOsnova.lastChild.setAttribute("placeholder", "text");
 
@@ -257,8 +264,9 @@ class Chapter{
         this.subChapterContainer.classList.add("subchapter")
         this.subChapterContainer.id = "subchapter-" + this.id
 
-        this.chapterOsnova.appendChild(this.buttonContainer)
         this.chapterOsnova.appendChild(this.subChapterContainer)
+        this.chapterOsnova.appendChild(this.buttonContainer)
+        
 
         for (let c = 0; c < options.length; c++)
             new Button(this.chapterOsnova, this.buttonContainer, this.id, options[c]);
