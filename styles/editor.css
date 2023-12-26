@@ -232,17 +232,17 @@ transform: scale(0.8);
 
 @keyframes new-chapter {
     0% {
-      transform: scale(0.1);
+    transform: scale(0.1);
     }
     25% {
-      opacity: 1;
-      transform: scale(1);
+    opacity: 1;
+    transform: scale(1);
     }
     100% {
-      opacity: 1;
-      transform: scale(1);
+    opacity: 1;
+    transform: scale(1);
     }
-  }
+}
 
 
 @keyframes appear {
@@ -255,8 +255,8 @@ transform: scale(0.8);
     100% {
         opacity: 1;
     }
-  }
-  
+}
+
 @keyframes disappear {
     0% {
         opacity: 1;
@@ -463,4 +463,26 @@ transform: scale(0.8);
         text-decoration: underline;
     }
 
-  }
+}
+
+@media print {
+    .chapter-button-container {
+        display: none;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    #open-menu-button {
+        display: none;
+    }
+
+    .chapter {
+        font-size: 14pt;
+    }
+
+    .subchapter {
+        flex-direction: column;   
+    }
+}

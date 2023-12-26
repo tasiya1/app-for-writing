@@ -114,6 +114,7 @@ class System{
                 console.log(this.chapterArray)
                 this.clearField()
                 document.getElementById("story-title").firstChild.innerHTML = this.chapterArray.title
+                this.colorTheme = this.chapterArray.colorTheme
                 this.appendChapters(this.chapterArray.chapters)
                 document.getElementById("file-input").value = null
             }
@@ -134,7 +135,8 @@ class System{
     }
 
     exportStory(){
-        this.chapterArray = {title: document.getElementById("story-title").firstChild.innerHTML, chapters: this.findMyKids(parent)} 
+        this.chapterArray = {title: document.getElementById("story-title").firstChild.innerHTML, chapters: this.findMyKids(parent),
+                            colorTheme: this.colorTheme} 
         this.writeFile(this.chapterArray)
     }
     
