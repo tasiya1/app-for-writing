@@ -6,6 +6,41 @@
 
 body {
     background-color: rgb(249, 249, 249);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page {
+
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-contents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.footer-contents * {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contents p {
+    border-right: 2px lightgray solid;
+}
+
+.footer a:active, footer a:visited{
+    color: gray;
 }
 
 .page {
@@ -26,8 +61,8 @@ body {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    flex-direction: row-reverse;
-    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    flex-direction: column;
+    transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     overflow-x: hidden;
     backdrop-filter: blur(10px);
     background-color: #ffffffad;
@@ -39,6 +74,15 @@ body {
 
 .opened {
     width: 450px;
+}
+
+.sidebar .top {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+ 
 }
 
 #open-menu-button {
@@ -74,11 +118,18 @@ body {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    width: 100%;
 }
 
 .option {
     display: flex;
     align-items: center;
+    border-bottom: 1px solid grey;
+
+}
+
+.option:last-of-type {
+    border: none;
 }
 
 .story-title{
@@ -157,7 +208,7 @@ transform: scale(0.8);
 }
 
 .chapter-button img{
-    height: 35px;
+    height: 25px;
     width: auto;
 }
 
@@ -287,23 +338,7 @@ transform: scale(0.8);
 }
 
 @media only screen and (max-width: 768px) {
-    .sidebar {
-        position: fixed;
-        height: 100%;
-        z-index: 100;
-        top: 0;
-        left: 0;
-        width: 0px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        flex-direction: row-reverse;
-        transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-        overflow-x: hidden;
-        backdrop-filter: blur(10px);
-        background-color: #ffffffad;
-    }
-    
+
     .closed {
         width: 0px;
     }
@@ -341,19 +376,8 @@ transform: scale(0.8);
         margin: 15px;
     }
     
-    .options-list {
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-    }
-    
-    .option {
-        display: flex;
-        align-items: center;
-    }
-    
     .story-title{
-        margin: 0 auto;
+        margin: 0 auto 20px auto;
         padding: 40px 40px 0 40px;
         font-size: 5vh;
         position: sticky;

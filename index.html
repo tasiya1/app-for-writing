@@ -5,41 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story editor</title>
     <link rel="stylesheet" href="styles/editor.css">
+    <link rel="icon" type="image/x-icon" href="icons/logo-small.png">
+
 </head>
 <body>
     <div class="page" id="main-page">
         <button id="open-menu-button" class="menu-button">
             <img src="icons/menu.png" title="Open Menu"></button>
         <div class="sidebar" id="menu">
-            <button id="close-menu-button"  class="menu-button">
-                <img src="icons/close.png" title="Close Menu">
-            </button>     
-            <div class="options-list">
-                <h1 id="app-title">Simple Write</h1>
-                <input type="color" id="color-mood" hidden>
-                <div class="option">
-                    <button id="import-button" class="menu-button">
-                        <img src="icons/import.png" title="Import Story"><input type="file" id="file-input" hidden>
-                    </button><label for="import-button">Import Story</label>
-                </div>
-                <div class="option">
-                    <button id="export-button" class="menu-button">
-                        <img src="icons/export.png" title="Export Story">
-                    </button><label for="export-button">Export Story</label>
-                </div>
-                <div class="option">
-                    <button class="menu-button"><img src="icons/theme.png" title="Set Color" height="40px"></button>
-                    <label for="color-mood">Edit Color Theme</label>
+            <div class="top">
+                <button id="close-menu-button"  class="menu-button">
+                    <img src="icons/close.png" title="Close Menu">
+                </button>     
+                <div class="options-list">
+                    <h1 id="app-title">Story Cell</h1>
+                    <input type="color" id="color-mood" hidden>
+                    <div class="option">
+                        <button id="import-button" class="menu-button">
+                            <img src="icons/import.png" title="Import Story"><input type="file" id="file-input" hidden>
+                        </button><label for="import-button">Import Story</label>
+                    </div>
+                    <div class="option">
+                        <button id="export-button" class="menu-button">
+                            <img src="icons/export.png" title="Export Story">
+                        </button><label for="export-button">Export Story</label>
+                    </div>
+                    <div class="option">
+                        <button class="menu-button"><img src="icons/theme.png" title="Set Color" height="40px"></button>
+                        <label for="color-mood">Edit Color Theme</label>
+                    </div>
                 </div>
             </div>
-            
+            <footer class="footer">
+                <div class="footer-contents">
+                    <p>Created by tasiya1</p><a href="https://github.com/tasiya1/story-cell" target="_blank">GitHub Repo<img src="icons/external-link.svg" width="15px" height="15px"></a>
+                </div>
+            </footer>
         </div>
         <div class="header">
-            <div class="story-title" class="editable" id="story-title" contenteditable><p>Elven Story</p></div>
+            <div class="story-title" class="editable" id="story-title" contenteditable><p>My Story</p></div>
         </div>
         <div id="message-empty"></div>
         <div id="chapters-container"></div>
     </div>
+    
     <script src="script/editor.js"></script>
 </body>
+
 </html>

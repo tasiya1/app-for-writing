@@ -2,7 +2,7 @@ var top = "top", bottom = "bottom", inside = "inside"
 
 var containers = []
 
-var options = ["add-subchapter", "add-bottom", "add-top", "delete"]
+var options = ["add-subchapter", "add-top", "add-bottom", "delete"]
 var descriptions = ["Add a subchapter", "Add a chapter below", "Add a chapter above", "Delete the chapter"]
 
 let parent = document.getElementById("chapters-container")
@@ -20,6 +20,8 @@ class System{
         this.addRescueButton()
         this.initMenu()
         this.initColorMoodInput()
+        this.initSelectionDealer()
+        this.beforeClosing()
     }
 
     wtfColor(){
@@ -37,6 +39,18 @@ class System{
         document.getElementById("export-button").onclick = () => {this.exportStory()}
         document.getElementById("open-menu-button").addEventListener("click", this.openSidebar)
         document.getElementById("close-menu-button").addEventListener("click", this.closeSidebar)
+    }
+
+    getSelectedText(){
+        document.activeElement.style.backgroundColor = "#9900ff"
+    }
+
+    initSelectionDealer(){
+
+    }
+
+    beforeClosing(){
+        window.onbeforeunload = function() {return ""}
     }
 
     closeSidebar(){
