@@ -24,9 +24,20 @@ class System{
         this.beforeClosing()
     }
 
-    wtfColor(){
-        //return "hsl(" + this.todaysTint /*+ Math.floor(this.tintRange * Math.random())*/ + ', 70%, 85%)'
-        return this.colorTheme + "88"
+    wtfColor(target){
+        let color = this.colorTheme
+        switch (target) {
+            case "chapter":
+                color += "88"
+                break;
+            case "border":
+                color += "bb"
+                break;
+        
+            default:
+                break;
+        }
+        return color
     }
 
     setColorTheme(){
@@ -69,8 +80,8 @@ class System{
             this.colorTheme = event.target.value
             this.todaysTint = this.getHue(this.colorTheme)
             document.querySelectorAll('.chapter').forEach(element => {
-                element.style.backgroundColor = this.wtfColor()
-                element.style.borderColor = this.wtfColor()
+                element.style.backgroundColor = this.wtfColor("chapter")
+                element.style.borderColor = this.wtfColor("border")
                 console.log(element.style.backgroundColor)
             });
         })
@@ -264,12 +275,20 @@ class Chapter{
 
         this.chapterOsnova.classList.add('chapter')
         this.chapterOsnova.id = "chapter-" + this.id //i
-        this.chapterOsnova.innerHTML = 
+
+        this.foldButton = document.createElement("button")
+        this.foldButton.classList.add("fold-button")
+        this.foldButton.id = "fold-button-" + this.id
+        this.foldButton.dataset.id = this.id
+        this.foldButton.innerHTML = `<img src = "./icons/arrow.png" width="20px">`
+        this.chapterOsnova.appendChild(this.foldButton)
+
+        this.chapterOsnova.innerHTML += 
         `<div class="chapter-header" id="chapter-header-` + this.id + `" contenteditable>` + title + `</div>
         <div class="chapter-text" id="chapter-text-` + this.id + `" width="100%" contenteditable>` + text + `</div>`
         this.chapterOsnova.dataset.id = this.id 
-        this.chapterOsnova.style.backgroundColor = sy.wtfColor()
-        this.chapterOsnova.style.borderColor = sy.wtfColor()
+        this.chapterOsnova.style.backgroundColor = sy.wtfColor("chapter")
+        this.chapterOsnova.style.borderColor = sy.wtfColor("border")
         this.chapterOsnova.firstChild.setAttribute("placeholder", "title");
         this.chapterOsnova.lastChild.setAttribute("placeholder", "text");
 
@@ -292,6 +311,8 @@ class Chapter{
         if (kids != null) if (kids.length != 0)
             this.takeCareOfKids(kids, this)
         sy.removeRescueButton()
+        document.getElementById(this.foldButton.id).addEventListener("click", this.foldButtonDoYourJob.bind(this))
+
         //containers.push(this)
     }
 
@@ -315,6 +336,19 @@ class Chapter{
         default:
             this.master.appendChild(this.chapterOsnova);
             break;
+        }
+    }
+    
+    foldButtonDoYourJob(){
+        const button = event.currentTarget;
+        let id = button.dataset.id
+        let ct = document.getElementById("chapter-" + id)
+
+        if (!(ct.classList.contains("folded"))){
+            ct.classList.add("folded")
+        }
+        else {
+            ct.classList.remove("folded")
         }
     }
 }
