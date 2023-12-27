@@ -65,7 +65,7 @@ body {
     transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     overflow-x: hidden;
     backdrop-filter: blur(10px);
-    background-color: #ffffffad;
+    background-color: #ffffffc7;
 }
 
 .closed {
