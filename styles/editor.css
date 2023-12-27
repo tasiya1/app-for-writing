@@ -229,6 +229,10 @@ body {
     padding: 30px;
 }
 
+.chapter-text img {
+    max-width: 100%;
+}
+
 .chapter .chapter-header, .chapter .chapter-text{
     outline: none;
     overflow: auto;
