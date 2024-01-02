@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <meta name="description" content="Organize your stories with cells.">
 </head>
-<body>
-    <div class="page" id="main-page">
+<body class="day">
+    <div id="main-page">
         <button id="open-menu-button" class="menu-button">
             <img src="icons/menu.png" title="Open Menu"></button>
         <div class="sidebar" id="menu">
@@ -36,6 +36,10 @@
                     <div class="option">
                         <button class="menu-button"><img src="icons/theme.png" title="Set Color" height="40px"></button>
                         <label for="color-mood">Edit Color Theme</label>
+                    </div>
+                    <div class="option">
+                        <button id="switch-mode-button" class="menu-button"><img id="mode-img" src="icons/day.png" title="Switch Mode" height="40px"></button>
+                        <label for="switch-mode-button">Switch to night mode</label>
                     </div>
                 </div>
             </div>

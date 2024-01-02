@@ -16,6 +16,7 @@ class System{
         this.chapterArray = []
         this.jsonChapterArray = []
         this.rescueButtonId = "rescue-button"
+        this.mode = "day"
         this.chapters = []
         this.addRescueButton()
         this.initMenu()
@@ -48,8 +49,32 @@ class System{
         this.initFileReader()
         document.getElementById("import-button").onclick = () => {this.importStory()}
         document.getElementById("export-button").onclick = () => {this.exportStory()}
+        document.getElementById("switch-mode-button").onclick = () => {this.switchMode()}
         document.getElementById("open-menu-button").addEventListener("click", this.openSidebar)
         document.getElementById("close-menu-button").addEventListener("click", this.closeSidebar)
+        document.body.addEventListener('keydown', (e) => {this.manageKeys(e)})
+    }
+
+    manageKeys(e){
+        if (e.key == "m") {this.openSidebar()}
+        if (e.key == "Escape") {this.closeSidebar()}
+    }
+
+    switchMode(){
+        document.querySelector('label[for="switch-mode-button"]').innerHTML = "Switch to " + this.mode +" mode"
+
+        switch (this.mode) {
+            case "night":
+                this.mode = "day"
+                break;
+            case "day":
+                this.mode = "night"
+                break;
+            default:
+                break;
+        }
+        document.getElementById("mode-img").src = "icons/" + this.mode + ".png"
+        document.body.classList = this.mode
     }
 
     getSelectedText(){
