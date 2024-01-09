@@ -63,7 +63,7 @@ class System{
 
     initDrag(){
         const chaptersContainer = document.getElementById('chapters-container')
-        new Sortable(chaptersContainer, { animation: 350, chosenClass: "chapter-chosen", dragClass: "chapter-drag" })
+        new Sortable(chaptersContainer, { handle: ".drag-button", animation: 350, chosenClass: "chapter-chosen", dragClass: "chapter-drag" })
     }
 
     switchMode(){
@@ -331,6 +331,11 @@ class Chapter{
         this.subChapterContainer.classList.add("subchapter")
         this.subChapterContainer.id = "subchapter-" + this.id
 
+        this.dragButton = document.createElement("div")
+        this.dragButton.classList.add("drag-button")
+        this.dragButton.innerHTML = `<img src = "./icons/drag.png" height="30px">`
+        
+        this.chapterOsnova.appendChild(this.dragButton)
         this.chapterOsnova.appendChild(this.subChapterContainer)
         this.chapterOsnova.appendChild(this.buttonContainer)
         
@@ -374,7 +379,7 @@ class Chapter{
     
     dragMeOn(){
         const thisChapter = document.getElementById("subchapter-" + this.id)
-        new Sortable(thisChapter, { animation: 350, chosenClass: "chapter-chosen", dragClass: "chapter-drag" })
+        new Sortable(thisChapter, { handle: ".drag-button", animation: 350, chosenClass: "chapter-chosen", dragClass: "chapter-drag" })
 
     }
 

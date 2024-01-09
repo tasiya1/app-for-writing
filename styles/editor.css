@@ -182,8 +182,10 @@ body {
     padding: 30px;
     overflow: hidden;
     min-height: fit-content;
-
-    animation: new-chapter 1s ease-in-out
+    max-height: max-content;
+    position: relative;
+    animation: new-chapter 1s ease-in-out;
+    transition: height 0.5s ease;
 }
 
 .fold-button {
@@ -201,40 +203,48 @@ body {
 }
 
 .folded {
-    display: flex;
-    justify-content: space-between;
-    transition:cubic-bezier(0.86, 0, 0.07, 1) 0.3s ease-out;
-    align-items: flex-start;
+    transition: height 0.5s ease;
 }
 
 .folded .fold-button {
     transform: rotateX(180deg);
 }
 
-.folded .chapter-button:first-of-type {
-    display: none;
+.folded .chapter-button {
+    display: none; height: 0;
 }
 
 .folded .chapter-header {
-    padding: 0;
     white-space: nowrap;
-    min-width: 40%;
-    max-width: 100%;
-    max-height: 100px;
-    margin: 10px;
-    text-align: center;
 }
 
 .folded .chapter-text {
-    display: none;
+    display: none; height: 0;
+}
+
+.folded .drag-button {
+    display: flex;
 }
 
 .folded .subchapter {
-    display: none;
+    display: none; height: 0;
 }
 
 .folded .subchapter * {
     display: flex;
+}
+
+.drag-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: grab;
+    width: min-content;
+    height: min-content;
+}
+
+.drag-button img {
+
 }
 
 .chapter-header {
@@ -440,7 +450,7 @@ body {
     }
     
     .folded .chapter-text {
-        display: none;
+        display: none; height: 0;
     }
 
     .story-title{
@@ -457,7 +467,7 @@ body {
         margin: 10px 20px;
         padding: 20px;
         overflow: hidden;
-
+        position: relative;
         animation: new-chapter 1s ease-in-out
     }
     
@@ -516,15 +526,15 @@ body {
 
 @media print {
     .chapter-button-container {
-        display: none;
+        display: none; height: 0;
     }
 
     .sidebar {
-        display: none;
+        display: none; height: 0;
     }
 
     #open-menu-button {
-        display: none;
+        display: none; height: 0;
     }
 
     .chapter {
