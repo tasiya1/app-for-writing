@@ -20,10 +20,6 @@ body {
     color: #f9f9f9;
 }
 
-.page {
-
-}
-
 .footer {
     width: 100%;
     display: flex;
@@ -252,7 +248,8 @@ body {
 
 .chapter-text {
     font-weight: 400;
-    padding: 30px;
+    padding: 20px;
+    margin: 10px;
 }
 
 .chapter-text img {

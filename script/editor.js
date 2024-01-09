@@ -20,6 +20,7 @@ class System{
         this.chapters = []
         this.addRescueButton()
         this.initMenu()
+        this.initDrag()
         this.initColorMoodInput()
         this.initSelectionDealer()
         this.beforeClosing()
@@ -58,6 +59,11 @@ class System{
     manageKeys(e){
         if (e.key == "m") {this.openSidebar()}
         if (e.key == "Escape") {this.closeSidebar()}
+    }
+
+    initDrag(){
+        const chaptersContainer = document.getElementById('chapters-container')
+        new Sortable(chaptersContainer, { animation: 350, chosenClass: "chapter-chosen", dragClass: "chapter-drag" })
     }
 
     switchMode(){
@@ -296,6 +302,7 @@ class Chapter{
         this.text = text
         this.chapterOsnova = document.createElement("div");
         this.master = master
+        this.prevId = prevId
         this.prev = document.getElementById("chapter-" + prevId)
 
         this.chapterOsnova.classList.add('chapter')
@@ -333,6 +340,7 @@ class Chapter{
 
    
         this.chapterOrder(order, prevId)
+        this.dragMeOn()
         if (kids != null) if (kids.length != 0)
             this.takeCareOfKids(kids, this)
         sy.removeRescueButton()
@@ -364,6 +372,12 @@ class Chapter{
         }
     }
     
+    dragMeOn(){
+        const thisChapter = document.getElementById("subchapter-" + this.id)
+        new Sortable(thisChapter, { animation: 350, chosenClass: "chapter-chosen", dragClass: "chapter-drag" })
+
+    }
+
     foldButtonDoYourJob(){
         const button = event.currentTarget;
         let id = button.dataset.id
