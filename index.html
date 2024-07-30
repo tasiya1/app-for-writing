@@ -26,21 +26,26 @@
                     <input type="color" id="color-mood" hidden>
                     <div class="option">
                         <button id="import-button" class="menu-button">
-                            <img src="icons/import.png" title="Import Story"><input type="file" id="file-input" hidden>
-                        </button><label for="import-button">Open</label>
+                            <img src="icons/open.png" title="Import Story"><input type="file" id="file-input" hidden>
+                        </button><label for="import-button">Open from...</label>
                     </div>
                     <div class="option">
                         <button id="export-button" class="menu-button">
-                            <img src="icons/export.png" title="Export Story">
-                        </button><label for="export-button">Save and Download</label>
+                            <img src="icons/download.png" title="Export Story">
+                        </button><label for="export-button">Save to...</label>
                     </div>
-                    <div class="option">
-                        <button class="menu-button"><img src="icons/theme.png" title="Set Color" height="40px"></button>
-                        <label for="color-mood">Edit Color Theme</label>
-                    </div>
+                    
                     <div class="option">
                         <button id="switch-mode-button" class="menu-button"><img id="mode-img" src="icons/day.png" title="Switch Mode" height="40px"></button>
                         <label for="switch-mode-button">Switch to night mode</label>
+                    </div>
+                    <div class="option">
+                        <button id="color-themes-button" class="menu-button"><img id="mode-img" src="icons/theme-0.png" title="Change Color Theme" height="40px"></button>
+                        <label for="color-themes-button">Change Color Theme</label>
+                    </div>
+                    <div class="option">
+                        <button class="menu-button"><img src="icons/theme.png" title="Set Color" height="40px"></button>
+                        <label for="color-mood">Custom Color Theme</label>
                     </div>
                 </div>
             </div>
@@ -51,13 +56,29 @@
             </footer>
         </div>
         <div class="header">
-            <div class="story-title" class="editable" id="story-title" contenteditable><p>My Story</p></div>
+            <div class="story-title" class="editable" id="story-title" contenteditable><p>My Story🌿</p></div>
         </div>
         <div id="message-empty"></div>
         <div id="chapters-container"></div>
     </div>
+
+    <div id="theme-window" class="folded">
+        
+        <div id="theme-header"">
+            <button id="close-themes-button" class="menu-button" style="position: absolute;
+            top: 5px;
+            right: 5px;">
+                <img src="icons/close.png" title="Close Menu">
+            </button>  
+            <h3>Color Themes</h3>
+            <div id="theme-container">
+                
+            </div>
+        </div>
+    </div>
     
     <script src="script/editor.js"></script>
+    <script src="script/initColorPalettes.js"></script>
 </body>
 
 </html>
