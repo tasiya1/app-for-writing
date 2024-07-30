@@ -10,7 +10,7 @@ let parent = document.getElementById("chapters-container")
 class System{
     constructor(){
         this.rescueButton = null
-        this.colorTheme = "#ffbf66"
+        this.colorTheme = "#c2da9a"
         this.todaysTint = 34
         this.tintRange = 15
         this.chapterArray = []
@@ -46,19 +46,27 @@ class System{
 
     }
 
+    closeThemes(){
+        document.getElementById("theme-window").classList.add("folded")
+    }
+
     initMenu(){
         this.initFileReader()
         document.getElementById("import-button").onclick = () => {this.importStory()}
+        document.getElementById("color-themes-button").onclick = () => {this.openThemeWindow()}
         document.getElementById("export-button").onclick = () => {this.exportStory()}
         document.getElementById("switch-mode-button").onclick = () => {this.switchMode()}
         document.getElementById("open-menu-button").addEventListener("click", this.openSidebar)
         document.getElementById("close-menu-button").addEventListener("click", this.closeSidebar)
+        document.getElementById("close-themes-button").addEventListener("click", this.closeThemes)
         document.body.addEventListener('keydown', (e) => {this.manageKeys(e)})
     }
 
     manageKeys(e){
         if (e.key == "m") {this.openSidebar()}
-        if (e.key == "Escape") {this.closeSidebar()}
+        if (e.key == "Escape") {
+            this.closeSidebar()
+            this.closeThemes()}
     }
 
     initDrag(){
@@ -188,6 +196,10 @@ class System{
     importStory(){
         this.closeSidebar()
         document.getElementById("file-input").click()
+    }
+
+    openThemeWindow(){
+        document.getElementById("theme-window").classList.remove("folded")
     }
 
     exportStory(){
